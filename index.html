@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    type="text/css" />
+  <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+  <div>
+    <div class="card mx-4 mt-3 mb-5">
+      <div class="card-body">
+        <form id="jobApplicationForm">
+          <h2 class="text-center">Job Application Form</h2>
+          <label for="name">Name:</label><br>
+          <input type="text" id="name" /><br><br>
+          <label for="email">Email:</label><br>
+          <input type="email" id="email" /><br><br>
+          <label for="resume">Upload Resume:</label><br>
+          <input type="file" id="resume" /><br><br>
+          <label for="position">Position Applied For:</label><br>
+          <select id="position">
+            <option value="softwareEnginner">Software Enginner</option>
+            <option value="dataAnalyst">Data Analyst</option>
+            <option value="marketingSpecialist">Marketing Specialist</option>
+            <option value="graphicDesigner">Graphic Designer</option>
+            <option value="hrManager">HR Manager</option>
+          </select><br><br>
+          <label for="experience">Years of Experience:</label><br>
+          <label for="experience"><input type="radio" name="experience" value="0-2 years" id="experience" /> 0-2
+            years</label><br>
+          <label for="experience"><input type="radio" name="experience" value="2-5 years" id="experience" /> 2-5
+            years</label><br>
+          <label for="experience"><input type="radio" name="experience" value="5+ years" id="experience" /> 5+
+            years</label><br><br>
+
+          <label for="skills">Skills (Check all that apply):</label><br>
+          <label for="skills"><input type="checkbox" name="skills" value="Programming" id="skills" />
+            Programming</label><br>
+          <label for="skills"><input type="checkbox" name="skills" value="Communication" id="skills" />
+            Communication</label><br>
+          <label for="skills"><input type="checkbox" name="skills" value="Teamwork" id="skills" /> Teamwork</label><br>
+          <label for="skills"><input type="checkbox" name="skills" value="problemSolving" id="skills" /> Problem
+            Solving</label><br><br>
+          <label for="information">Additional Information</label><br>
+          <textarea id="information" rows="3" cols="40"></textarea><br><br>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id="jobApplicationFormResult"></div>
+
+  <script>
+    const jobApplicationForm = document.getElementById("jobApplicationForm")
+    jobApplicationForm.addEventListener("submit", function (event) {
+
+      event.preventDefault()
+
+      const name = document.getElementById("name").value
+      const email = document.getElementById("email").value
+      const resume = document.getElementById("resume").value
+      const position = document.getElementById("position").value
+      const experience = document.querySelector(`input[name="experience"]:checked`).value
+
+      const information = document.getElementById("information").value
+      const skills = document.querySelectorAll(`input[name="skills"]:checked`)
+      let selectedSkills = []
+      for (let i = 0; i < skills.length; i++) {
+        selectedSkills.push(skills[i].value)
+      }
+
+      const getInputValues = `<div class="card mx-4 mb-2">
+    <div class="card-body">
+    <h2>Application Submitted</h2>
+    <p><strong>Name: </strong>${name}</p>
+    <p><strong>Email: </strong>${email}</p>
+    <p><strong>Resume Path: </strong>${resume}</p>
+    <p><strong>Position Applied For: </strong>${position}</p>
+    <p><strong>Years of Experience: </strong>${experience}</p>
+    <p><strong>Skills: </strong>${selectedSkills.join(', ')}</p>
+    <p><strong>Additional Information: </strong>${information}</p>
+    </div>
+    </div>`
+
+      const divElement = document.getElementById("jobApplicationFormResult")
+      divElement.innerHTML = getInputValues
+
+    })
+  </script>
+</body>
+
+</html>
